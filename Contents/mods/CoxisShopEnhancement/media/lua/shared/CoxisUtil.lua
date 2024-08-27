@@ -1,15 +1,4 @@
---[[
-#########################################################################################################
-#	@mod:		CoxisUtil - Basci utilities for Coxis mods                                              #
-#	@author: 	Dr_Cox1911					                                                            #
-#	@notes:		Many thanks to RJ�s LastStand code and all the other modders out there					#
-#	@notes:													                                  			#
-#	@link: 													       										#
-#########################################################################################################
---]]
-
 CoxisUtil = {};
-
 
 ---
 -- Reads in a ini-formatted file from your mod folder in to a properly formatted
