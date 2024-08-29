@@ -18,13 +18,13 @@ CoxisUtil.readLua = function(_modID, _filename)
 			settingsFile:close();
 			break;
 		end
-		if (luautils.stringStarts(line, "--[")) then
-			section = string.sub(line, 4, -2);
+		if (luautils.stringStarts(line, "--|[")) then
+			section = string.sub(line, 5, -2);
 			inidata[section] = {};
 			sectionFound = true;
 		end
-		if (not luautils.stringStarts(line, "--[") and line ~= "") then
-			line = string.sub(line, 3, -1);
+		if (luautils.stringStarts(line, "--|")) then
+			line = string.sub(line, 4, -1);
 			local splitedLine = string.split(line, "=");
 			local key = splitedLine[1];
 			local value = splitedLine[2];
