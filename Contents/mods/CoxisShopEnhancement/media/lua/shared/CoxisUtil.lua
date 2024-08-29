@@ -1,5 +1,43 @@
 CoxisUtil = {};
 
+
+
+-- **************************************************************************************
+-- 读Lua
+-- **************************************************************************************
+CoxisUtil.readLua = function(_modID, _filename)
+	local settingsFile = getModFileReader(_modID, _filename, true);
+	local inidata = {};
+	local line = nil;
+	local section = "empty";
+	local sectionFound = false;
+	local keyFound = false;
+	while true do
+		line = settingsFile:readLine();
+		if line == nil then
+			settingsFile:close();
+			break;
+		end
+		if (luautils.stringStarts(line, "--[")) then
+			section = string.sub(line, 4, -2);
+			inidata[section] = {};
+			sectionFound = true;
+		end
+		if (not luautils.stringStarts(line, "--[") and line ~= "") then
+			line = string.sub(line, 3, -1);
+			local splitedLine = string.split(line, "=");
+			local key = splitedLine[1];
+			local value = splitedLine[2];
+			inidata[section][key] = value;
+			keyFound = true;
+		end
+	end
+	if sectionFound and keyFound then
+		return inidata;
+	end
+	return nil;
+end
+
 ---
 -- Reads in a ini-formatted file from your mod folder in to a properly formatted
 -- 2dim table. If the file is not present it will get created.
