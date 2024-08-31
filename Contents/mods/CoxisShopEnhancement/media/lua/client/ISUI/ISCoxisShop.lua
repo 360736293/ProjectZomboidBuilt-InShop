@@ -26,9 +26,20 @@ function ISCoxisShop:createChildren()
 	self.itemScreen:initialise();
 	self.panel:addView(getText('UI_CoxisShop_Various'), self.itemScreen);
 	-------------------------
+
+	-- Tab with weapons stuff
+	self.weaponsScreen = ISCoxisShopPanel:new(0, 8, 400, 400, self.playerId, self.settings["WEAPONS"]);
+	self.weaponsScreen:initialise();
+	self.panel:addView(getText('UI_CoxisShop_Weapons'), self.weaponsScreen);
+	-------------------------
+
+	-- Tab with medicines stuff
+	self.medicinesScreen = ISCoxisShopPanel:new(0, 8, 400, 400, self.playerId, self.settings["MEDICINES"]);
+	self.medicinesScreen:initialise();
+	self.panel:addView(getText('UI_CoxisShop_Medicines'), self.medicinesScreen);
+	-------------------------
 	
 	-- Tab with skills
-	--self.playerScreen = ISCoxisShopPlayerUpWindow:new(0, 8, 400, 400, self.playerId);
 	self.playerScreen = ISCoxisShopPanelSkills:new(0, 8, 400, 400, self.playerId, self.settings["SKILLS"]);
 	self.playerScreen:initialise();
 	self.panel:addView(getText('UI_CoxisShop_Player'), self.playerScreen);
