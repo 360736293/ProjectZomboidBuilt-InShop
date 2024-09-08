@@ -1,11 +1,11 @@
 version=1
 id=2795784291
 title=CoxisShopEnhancement
-description=使用O键打开内置商店菜单，新角色建立时获得2000金钱，击杀一个僵尸获得5金钱，每活过一天奖励100金钱，具体数值以及商店购买内容可以自己在MOD目录下media/lua/client/CoxisShopSettings.lua文件内进行修改。MOD物品也是可以自定义添加到本内置商店里面购买的，具体注意事项可以参考配置文件。建议手动保存一下自己配置的CoxisShopSettings.lua文件，避免因为MOD更新而丢失了自己的配置。
+description=使用O键打开内置商店菜单，新角色建立时获得5000金钱，死亡后创建的角色继承上一个角色的金钱，击杀一个僵尸获得5金钱，每活过一天奖励100金钱，具体数值以及商店购买内容可以自己在MOD目录下media/lua/client/CoxisShopSettings.lua文件内进行修改。MOD物品也是可以自定义添加到本内置商店里面购买的，具体注意事项可以参考配置文件。建议手动保存一下自己配置的CoxisShopSettings.lua文件，避免因为MOD更新而丢失了自己的配置。
 description=
 description=注意：多人模式使用本MOD可能会有未知问题。
 description=
-description=Use the O key to open the built-in store menu. When creating a new character, you will receive 2000 coins. Killing a zombie will earn you 5 coins. For every day you live, you will receive a reward of 100 coins. The specific values and store purchases can be modified by yourself in the media/lua/client/CoxisShopSettings. lua file in the MOD directory. MOD items can also be customized and added to the built-in store for purchase. Specific precautions can be found in the configuration file. It is recommended to manually save the CoxisShopSettings. lua file of your own configuration to avoid losing your configuration due to MOD updates.
+description=Use the O key to open the built-in store menu. When creating a new character, you will receive 5000 coins. Characters created after death inherit the money from the previous character. Killing a zombie will earn you 5 coins. For every day you live, you will receive a reward of 100 coins. The specific values and store purchases can be modified by yourself in the media/lua/client/CoxisShopSettings. lua file in the MOD directory. MOD items can also be customized and added to the built-in store for purchase. Specific precautions can be found in the configuration file. It is recommended to manually save the CoxisShopSettings. lua file of your own configuration to avoid losing your configuration due to MOD updates.
 description=
 description=Notice: There may be unknown issues when using this MOD in multiplayer mode.
 tags=Build 40;Build 41;Misc
