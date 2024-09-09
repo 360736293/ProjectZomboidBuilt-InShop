@@ -141,7 +141,7 @@ end
 -- **************************************************************************************
 CoxisShop.giveDailyMoney = function()
 	for i = 0,getNumActivePlayers() - 1 do
-		CoxisShop.modData[i].playerMoney = CoxisShop.modData[i].playerMoney + tonumber(CoxisShop.settings["BASIC"]["daily"])
+		CoxisShop.modData[i].playerMoney = CoxisShop.modData[i].playerMoney + tonumber(CoxisShop.settings["BASIC"]["daily"]) + luautils.round(CoxisShop.modData[i].playerMoney * tonumber(CoxisShop.settings["BASIC"]["bonus"]),0);
 	end
 end
 
