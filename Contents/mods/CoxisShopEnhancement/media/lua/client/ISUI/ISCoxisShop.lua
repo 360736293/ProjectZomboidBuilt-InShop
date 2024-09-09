@@ -44,6 +44,12 @@ function ISCoxisShop:createChildren()
 	self.playerScreen:initialise();
 	self.panel:addView(getText('UI_CoxisShop_Player'), self.playerScreen);
 	-------------------------
+
+	-- Tab with specials
+	self.specialsScreen = ISCoxisShopPanelSpecials:new(0, 8, 400, 400, self.playerId, self.settings["SPECIALS"]);
+	self.specialsScreen:initialise();
+	self.panel:addView(getText('UI_CoxisShop_Specials'), self.specialsScreen);
+	-------------------------
 end
 
 function ISCoxisShop:render()
@@ -58,7 +64,10 @@ end
 function ISCoxisShop:reloadButtons()
 	self.foodScreen:reloadButtons();
 	self.itemScreen:reloadButtons();
+	self.weaponsScreen:reloadButtons();
+	self.medicinesScreen:reloadButtons();
 	self.playerScreen:reloadButtons();
+	self.specialsScreen:reloadButtons();
 end
 
 function ISCoxisShop:onGainJoypadFocus(joypadData)

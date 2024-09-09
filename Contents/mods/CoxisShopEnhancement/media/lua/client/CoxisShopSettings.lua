@@ -126,3 +126,6 @@
 --|Maintenance=600
 --|Fitness=600
 --|Strength=600
+
+--|[SPECIALS]
+--|UI_CoxisShop_Healing=2000
