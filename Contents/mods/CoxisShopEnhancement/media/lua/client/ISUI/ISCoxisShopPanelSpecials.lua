@@ -108,15 +108,22 @@ function ISCoxisShopPanelSpecials:onBuyMouseDown(button, x, y)
 		local selectedFunction = self.CoxisShopList.items[self.CoxisShopList.selected].item
 		if selectedFunction ~= nil then
 			--获取商品名值数组
-			local splitstring = luautils.split(selectedFunction, "|")
+			local splitstring = luautils.split(selectedFunction, "|");
+
 			--治愈自己
 			if(splitstring[1] == "UI_CoxisShop_Healing") then
-				--扣钱
-				self.char:getModData().playerMoney = self.char:getModData().playerMoney - tonumber(splitstring[2]);
-				--治愈
 				getPlayer():getBodyDamage():RestoreToFullHealth();
 				getPlayer():Say(getText("UI_CoxisShop_Completed_Healing"));
 			end
+
+			--修复右手装备耐久
+			if(splitstring[1] == "UI_CoxisShop_Repairing") then
+				getPlayer():getPrimaryHandItem():setCondition(getPlayer():getPrimaryHandItem():getConditionMax());
+				getPlayer():Say(getText("UI_CoxisShop_Completed_Repairing"));
+			end
+
+			--在最后扣钱，避免功能未生效却把钱扣了
+			self.char:getModData().playerMoney = self.char:getModData().playerMoney - tonumber(splitstring[2]);
 		end
 	end
 	self:reloadButtons()

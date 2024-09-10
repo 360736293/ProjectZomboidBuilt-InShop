@@ -54,7 +54,7 @@
 --|Base.MechanicMag2=500
 --|Base.MechanicMag3=500
 --|Base.ElectronicsMag4=1000
---|Base.Generator=5000
+--|Base.Generator=4000
 --|camping.CampingTentKit=1000
 --|camping.CampfireKit=200
 
@@ -128,4 +128,5 @@
 --|Strength=600
 
 --|[SPECIALS]
---|UI_CoxisShop_Healing=2000
+--|UI_CoxisShop_Healing=4000
+--|UI_CoxisShop_Repairing=2000
