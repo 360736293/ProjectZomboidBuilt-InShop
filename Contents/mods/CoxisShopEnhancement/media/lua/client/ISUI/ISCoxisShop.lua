@@ -61,56 +61,11 @@ function ISCoxisShop:render()
 	end
 end
 
-function ISCoxisShop:reloadButtons()
-	self.foodScreen:reloadButtons();
-	self.itemScreen:reloadButtons();
-	self.weaponsScreen:reloadButtons();
-	self.medicinesScreen:reloadButtons();
-	self.playerScreen:reloadButtons();
-	self.specialsScreen:reloadButtons();
-end
-
-function ISCoxisShop:onGainJoypadFocus(joypadData)
-	ISCollapsableWindow.onGainJoypadFocus(self, joypadData)
-	joypadData.focus = self.panel:getActiveView()
-end
-
-function ISCoxisShop:onJoypadDown(button, joypadData)
-	if button == Joypad.LBumper or button == Joypad.RBumper then
-		if #self.panel.viewList < 2 then return end
-		local viewIndex
-		for i,v in ipairs(self.panel.viewList) do
-			if v.view == self.panel:getActiveView() then
-				viewIndex = i
-				break
-			end
-		end
-		if button == Joypad.LBumper then
-			if viewIndex == 1 then
-				viewIndex = #self.panel.viewList
-			else
-				viewIndex = viewIndex - 1
-			end
-		end
-		if button == Joypad.RBumper then
-			if viewIndex == #self.panel.viewList then
-				viewIndex = 1
-			else
-				viewIndex = viewIndex + 1
-			end
-		end
-		self.panel:activateView(self.panel.viewList[viewIndex].name)
---		setJoypadFocus(self.playerId, self.panel:getActiveView())
-		joypadData.focus = self.panel:getActiveView()
-	end
-end
-
-function ISCoxisShop:new (x, y, width, height, player, settings)
+function ISCoxisShop:new(x, y, width, height, player, settings)
 	local o = {};
 	o = ISCollapsableWindow:new(x, y, width, height);
 	setmetatable(o, self);
 	self.__index = self;
---	o:noBackground();
 	o:setTitle(getText("UI_ISCoxisShop_WindowTitle"))
 	o.playerId = player;
 	ISCoxisShop.instance[player] = o;

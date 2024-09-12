@@ -8,16 +8,6 @@ ISCoxisScrollbar = ISScrollBar:derive("ISCoxisScrollbar");
 CoxisShopUI = {};
 CoxisShopUI.items = {};
 
-CoxisShopUI.checkPrice = function(_target, _onmousedown, _self)
-	local splitstring = luautils.split(_onmousedown, "|");
-
-	if _self.char:getModData().playerMoney < tonumber(splitstring[2]) then
-		_self.parent.buttons[1]:setEnable(false);
-	else
-		_self.parent.buttons[1]:setEnable(true);
-	end
-end
-
 function ISCoxisShopPanelSkills:initialise()
 	ISPanelJoypad.initialise(self);
 	self:create();
@@ -44,7 +34,6 @@ function ISCoxisShopPanelSkills:create()
     self.CoxisShopList:initialise()
     self.CoxisShopList:instantiate()
     self.CoxisShopList.itemheight = 22
-	self.CoxisShopList.onmousedown = CoxisShopUI.checkPrice;
     self.CoxisShopList.font = UIFont.NewSmall
     self.CoxisShopList.drawBorder = true
     self:addChild(self.CoxisShopList)
@@ -60,8 +49,6 @@ function ISCoxisShopPanelSkills:create()
 			end
 			if perkName ~= nil and perkType ~= nil then
 				local lvlacquire = self.char:getPerkLevel(Perks.FromString(perkString))+1;
-				--print("lvl from char: " .. tostring(self.char:getPerkLevel(Perks.FromString(perkString))));
-				--print("lvlacquire: " .. tostring(lvlacquire));
 				if lvlacquire <= 10 then
 					self.CoxisShopList:addItem(perkName .. " - Lvl. " .. tostring(lvlacquire) .. " (" .. tostring(luautils.round(value*(lvlacquire/1.2),0)) .. ")", tostring(perkType) .. "|" .. tostring(luautils.round(value*(lvlacquire/1.2),0)));
 				end
@@ -108,57 +95,35 @@ function ISCoxisShopPanelSkills:createButton(x, y, _function, player, playerId)
 end
 
 function ISCoxisShopPanelSkills:onBuyMouseDown(button, x, y)
-	-- manage the item
 	if button.internal == "buy" then
-		local selectedPerk = self.CoxisShopList.items[self.CoxisShopList.selected].item
-		--print("selected: " .. tostring(selectedPerk));
-		if selectedPerk ~= nil then
-			local splitstring = luautils.split(selectedPerk, "|")
-			--print("cost: " .. tostring(splitstring[2]));
-			self.char:getModData().playerMoney = self.char:getModData().playerMoney - tonumber(splitstring[2]);
+		local selectedPerk = self.CoxisShopList.items[self.CoxisShopList.selected].item;
+		local splitstring = luautils.split(selectedPerk, "|");
+		if selectedPerk ~= nil and self.char:getModData().playerMoney >= tonumber(splitstring[2]) then
+			self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney - tonumber(splitstring[2]),0);
 			self.char:LevelPerk(Perks.FromString(splitstring[1]));
 			luautils.updatePerksXp(Perks.FromString(splitstring[1]), self.char);
 		end
 	end
-	self:reloadButtons()
+	self:reloadSkillItems()
 end
 
-function ISCoxisShopPanelSkills:reloadButtons()
-	local index = 1;
-	if self.CoxisShopList.selected > 0 then
-		index = self.CoxisShopList.selected;
-	end
-
-	if #self.CoxisShopList.items > 0 then
-		local selectedItem = self.CoxisShopList.items[index].item;
-		local splitstring = luautils.split(selectedItem, "|");
-
-		if self.char:getModData().playerMoney < tonumber(splitstring[2]) then
-			self.buttons[1]:setEnable(false);
-		else
-			self.buttons[1]:setEnable(true);
-		end
-
-		self.CoxisShopList:clear();
-
-		for perkString,value in pairs(self.items) do
-			local perkName = nil;
-			local perkType = nil;
-			for k=0, PerkFactory.PerkList:size()-1, 1 do
-				if tostring(PerkFactory.PerkList:get(k):getType()) == perkString then
-					perkName = PerkFactory.PerkList:get(k):getName();
-					perkType = PerkFactory.PerkList:get(k):getType();
-				end
-			end
-			if perkName ~= nil and perkType ~= nil then
-				local lvlacquire = self.char:getPerkLevel(Perks.FromString(perkString))+1;
-				if lvlacquire <= 10 then
-					self.CoxisShopList:addItem(perkName .. " - Lvl. " .. tostring(lvlacquire) .. " (" .. tostring(luautils.round(value*(lvlacquire/1.2),0)) .. ")", tostring(perkType) .. "|" .. tostring(luautils.round(value*(lvlacquire/1.2),0)));
-				end
+function ISCoxisShopPanelSkills:reloadSkillItems()
+	self.CoxisShopList:clear();
+	for perkString,value in pairs(self.items) do
+		local perkName = nil;
+		local perkType = nil;
+		for k=0, PerkFactory.PerkList:size()-1, 1 do
+			if tostring(PerkFactory.PerkList:get(k):getType()) == perkString then
+				perkName = PerkFactory.PerkList:get(k):getName();
+				perkType = PerkFactory.PerkList:get(k):getType();
 			end
 		end
-	else
-		self.buttons[1]:setEnable(false);
+		if perkName ~= nil and perkType ~= nil then
+			local lvlacquire = self.char:getPerkLevel(Perks.FromString(perkString))+1;
+			if lvlacquire <= 10 then
+				self.CoxisShopList:addItem(perkName .. " - Lvl. " .. tostring(lvlacquire) .. " (" .. tostring(luautils.round(value*(lvlacquire/1.2),0)) .. ")", tostring(perkType) .. "|" .. tostring(luautils.round(value*(lvlacquire/1.2),0)));
+			end
+		end
 	end
 end
 
@@ -206,34 +171,6 @@ function ISCoxisShopPanelSkills:new(x, y, width, height, player, _items)
 	o.items = _items;
 	o.CoxisShopList = nil;
    return o;
-end
-
--- **************************************************************************************
--- redefining the ISScrollingListBox:onBuyMouseDown to pass more variables
--- **************************************************************************************
-function ISCoxisShopList:onMouseDown(x, y)
-	if #self.items == 0 then return end
-	local row = self:rowAt(x, y)
-
-	if row > #self.items then
-		row = #self.items;
-	end
-	if row < 1 then
-		row = 1;
-	end
-
-	-- RJ: If you select the same item it unselect it
-	--if self.selected == y then
-	--if self.selected == y then
-		--self.selected = -1;
-		--return;
-	--end
-
-	self.selected = row;
-
-	if self.onmousedown then
-		self.onmousedown(self.target, self.items[self.selected].item, self);
-	end
 end
 
 function ISCoxisShopList:new(x, y, width, height, player, playerId, parent)

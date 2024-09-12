@@ -59,7 +59,6 @@ local function showUpgradeScreen(playerNum)
 		-- 初始化为false，只有为false下面的判断才会setVisible为true
 		CoxisShop.upgradeScreen[playerNum]:setVisible(false);
 	end
-	CoxisShop.upgradeScreen[playerNum]:reloadButtons();
 
 	-- 开关UI界面
 	if CoxisShop.upgradeScreen[playerNum]:getIsVisible() then

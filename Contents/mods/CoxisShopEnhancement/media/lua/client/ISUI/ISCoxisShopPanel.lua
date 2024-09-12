@@ -8,16 +8,6 @@ ISCoxisScrollbar = ISScrollBar:derive("ISCoxisScrollbar");
 CoxisShopUI = {};
 CoxisShopUI.items = {};
 
-CoxisShopUI.checkPrice = function(_target, _onmousedown, _self)
-	local splitstring = luautils.split(_onmousedown, "|");
-
-	if _self.char:getModData().playerMoney < tonumber(splitstring[2]) then
-		_self.parent.buttons[1]:setEnable(false);
-	else
-		_self.parent.buttons[1]:setEnable(true);
-	end
-end
-
 function ISCoxisShopPanel:initialise()
 	ISPanelJoypad.initialise(self);
 	self:create();
@@ -46,8 +36,7 @@ function ISCoxisShopPanel:create()
     self.CoxisShopList:initialise()
     self.CoxisShopList:instantiate()
     self.CoxisShopList.itemheight = 22
-		self.CoxisShopList.columns = {};
-	self.CoxisShopList.onmousedown = CoxisShopUI.checkPrice;
+	self.CoxisShopList.columns = {};
     self.CoxisShopList.font = UIFont.NewSmall
     self.CoxisShopList.drawBorder = true
     self:addChild(self.CoxisShopList)
@@ -98,79 +87,25 @@ function ISCoxisShopPanel:createButton(x, y, _label, _internal, _function, playe
 end
 
 function ISCoxisShopPanel:onBuyMouseDown(button, x, y)
-	-- manage the item
 	if button.internal == "buy" then
 		local selectedItem = self.CoxisShopList.items[self.CoxisShopList.selected].item
-
-		if selectedItem ~= nil then
-			local splitstring = luautils.split(selectedItem, "|")
-			self.char:getModData().playerMoney = self.char:getModData().playerMoney - tonumber(splitstring[2]);
+		local splitstring = luautils.split(selectedItem, "|")
+		if selectedItem ~= nil and self.char:getModData().playerMoney >= tonumber(splitstring[2]) then
+			self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney - tonumber(splitstring[2]),0);
 			self.char:getInventory():AddItem(splitstring[1]);
 		end
 	end
-	self:reloadButtons()
 end
 
 function ISCoxisShopPanel:onSellMouseDown(button, x, y)
-	-- manage the item
 	if button.internal == "sell" then
 		local selectedItem = self.CoxisShopList.items[self.CoxisShopList.selected].item;
 		local splitstring = luautils.split(selectedItem, "|")
 		if selectedItem ~= nil and self.char:getInventory():contains(splitstring[1]) then
 			--10%价格出售
-			self.char:getModData().playerMoney = self.char:getModData().playerMoney + tonumber(splitstring[2]) * 0.1;
+			self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney + tonumber(splitstring[2]) * 0.1,0);
 			self.char:getInventory():RemoveOneOf(splitstring[1]);
 		end
-	end
-	self:reloadButtons()
-end
-
-function ISCoxisShopPanel:reloadButtons()
-	local index = 1;
-	if self.CoxisShopList.selected > 0 then
-		index = self.CoxisShopList.selected;
-	end
-	if #self.CoxisShopList.items > 0 then
-		local selectedItem = self.CoxisShopList.items[index].item;
-		local splitstring = luautils.split(selectedItem, "|");
-
-		if self.char:getModData().playerMoney < tonumber(splitstring[2]) then
-			self.buttons[1]:setEnable(false);
-		else
-			self.buttons[1]:setEnable(true);
-		end
-	else
-		self.buttons[1]:setEnable(false);
-	end
-end
-
-function ISCoxisShopPanel:loadJoypadButtons()
-	self:clearJoypadFocus()
-	self.joypadButtonsY = {}
-	self:insertNewLineOfButtons(self.buttons[1])
-	self:insertNewLineOfButtons(self.buttons[2])
-	self:insertNewLineOfButtons(self.buttons[3])
-	self:insertNewLineOfButtons(self.buttons[4], self.buttons[5]);
-	self:insertNewLineOfButtons(self.buttons[6], self.buttons[7]);
-	self.joypadIndex = 1
-	self.joypadIndexY = 1
-	self.joypadButtons = self.joypadButtonsY[self.joypadIndexY]
-	self.joypadButtons[self.joypadIndex]:setJoypadFocused(true)
-end
-
-function ISCoxisShopPanel:onJoypadDown(button, joypadData)
-	if button == Joypad.AButton then
-		ISPanelJoypad.onJoypadDown(self, button, joypadData)
-	end
-	if button == Joypad.BButton then
-		ISCoxisShopUpgradeTab.instance[self.playerId]:setVisible(false)
-		joypadData.focus = nil
-	end
-	if button == Joypad.LBumper then
-		ISCoxisShopUpgradeTab.instance[self.playerId]:onJoypadDown(button, joypadData)
-	end
-	if button == Joypad.RBumper then
-		ISCoxisShopUpgradeTab.instance[self.playerId]:onJoypadDown(button, joypadData)
 	end
 end
 
@@ -188,34 +123,6 @@ function ISCoxisShopPanel:new(x, y, width, height, player, _items)
 	o.items = _items;
 	o.CoxisShopList = nil;
    return o;
-end
-
--- **************************************************************************************
--- redefining the ISScrollingListBox:onBuyMouseDown to pass more variables
--- **************************************************************************************
-function ISCoxisShopList:onMouseDown(x, y)
-	if #self.items == 0 then return end
-	local row = self:rowAt(x, y)
-
-	if row > #self.items then
-		row = #self.items;
-	end
-	if row < 1 then
-		row = 1;
-	end
-
-	-- RJ: If you select the same item it unselect it
-	--if self.selected == y then
-	--if self.selected == y then
-		--self.selected = -1;
-		--return;
-	--end
-
-	self.selected = row;
-
-	if self.onmousedown then
-		self.onmousedown(self.target, self.items[self.selected].item, self);
-	end
 end
 
 function ISCoxisShopList:new(x, y, width, height, player, playerId, parent)
