@@ -17,6 +17,7 @@ UI_CN = {
 	UI_CoxisShop_Repair_Vehicle = "修复车辆",
 	UI_CoxisShop_PermanentBonus = "升级",
 	UI_CoxisShop_BuyButton = "购买",
+	UI_CoxisShop_SellButton = "售卖(10%)",
 	UI_CoxisShop_AvailItems = "物品列表",
 	UI_CoxisShop_AvailSkills = "技能列表",
 	UI_CoxisShop_AvailFuncs = "功能列表",

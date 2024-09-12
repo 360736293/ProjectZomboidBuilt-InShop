@@ -17,6 +17,7 @@ UI_DE = {
 	UI_CoxisShop_Repair_Vehicle = "Repair the vehicle",
 	UI_CoxisShop_PermanentBonus = "Upgrades",
 	UI_CoxisShop_BuyButton = "Buy",
+	UI_CoxisShop_SellButton = "Sell(10%)",
 	UI_CoxisShop_AvailItems = "Available Items",
 	UI_CoxisShop_AvailSkills = "Available Skills",
 	UI_CoxisShop_AvailFuncs = "Available Functions",

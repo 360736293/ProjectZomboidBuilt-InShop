@@ -56,7 +56,8 @@ function ISCoxisShopPanel:create()
 		local item = ScriptManager.instance:getItem(itemType)
 		self.CoxisShopList:addItem(item:getDisplayName() .. " (" .. tostring(value) .. ")", tostring(itemType) .. "|" .. tostring(value));
 	end
-	self.CoxisShopBuyButton = self:createButton(290, y-15, self.onBuyMouseDown, self.char, self.playerId);
+	self.CoxisShopBuyButton = self:createButton(170, y-15, "UI_CoxisShop_BuyButton", "buy", self.onBuyMouseDown, self.char, self.playerId);
+	self.CoxisShopSellButton = self:createButton(290, y-15, "UI_CoxisShop_SellButton", "sell", self.onSellMouseDown, self.char, self.playerId);
 end
 
 function ISCoxisShopPanel:createItemButton(x, y, itemType, cost)
@@ -80,12 +81,12 @@ function ISCoxisShopPanel:createItemButton(x, y, itemType, cost)
 	table.insert(self.buttons, button);
 end
 
-function ISCoxisShopPanel:createButton(x, y, _function, player, playerId)
+function ISCoxisShopPanel:createButton(x, y, _label, _internal, _function, player, playerId)
 	local label = nil;
-	label = getText('UI_CoxisShop_BuyButton')
+	label = getText(_label);
 	local button = ISButton:new(x, y, 100, 25, label, self, _function);
 	button:initialise();
-	button.internal = "buy";
+	button.internal = _internal;
 	button.borderColor = {r=1, g=1, b=1, a=0.1};
 	button.playerId = playerId;
 	button.char = player;
@@ -110,12 +111,25 @@ function ISCoxisShopPanel:onBuyMouseDown(button, x, y)
 	self:reloadButtons()
 end
 
+function ISCoxisShopPanel:onSellMouseDown(button, x, y)
+	-- manage the item
+	if button.internal == "sell" then
+		local selectedItem = self.CoxisShopList.items[self.CoxisShopList.selected].item;
+		local splitstring = luautils.split(selectedItem, "|")
+		if selectedItem ~= nil and self.char:getInventory():contains(splitstring[1]) then
+			--10%价格出售
+			self.char:getModData().playerMoney = self.char:getModData().playerMoney + tonumber(splitstring[2]) * 0.1;
+			self.char:getInventory():RemoveOneOf(splitstring[1]);
+		end
+	end
+	self:reloadButtons()
+end
+
 function ISCoxisShopPanel:reloadButtons()
 	local index = 1;
 	if self.CoxisShopList.selected > 0 then
 		index = self.CoxisShopList.selected;
 	end
-
 	if #self.CoxisShopList.items > 0 then
 		local selectedItem = self.CoxisShopList.items[index].item;
 		local splitstring = luautils.split(selectedItem, "|");

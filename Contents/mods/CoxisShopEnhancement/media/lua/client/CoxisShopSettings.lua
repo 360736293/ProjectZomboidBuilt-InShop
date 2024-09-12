@@ -24,6 +24,7 @@
 --|Base.Pan=100
 --|Base.Sledgehammer=2000
 --|Base.Hammer=100
+--|Base.BallPeenHammer=100
 --|Base.Screwdriver=100
 --|Base.Saw=100
 --|Base.Wrench=100
