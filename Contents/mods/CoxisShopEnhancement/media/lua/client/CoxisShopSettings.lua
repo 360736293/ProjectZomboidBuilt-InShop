@@ -10,7 +10,7 @@
 ----------------------------------------------------------------------------------------
 
 --|[BASIC]
---|initiateMoney=3000
+--|initiateMoney=2000
 --|amount=5
 --|daily=100
 --|bonus=0.01
@@ -44,6 +44,7 @@
 --|Base.Lighter=100
 --|Base.Battery=100
 --|Base.NailsBox=100
+--|Base.PaperclipBox=100
 --|Base.DuctTape=100
 --|Base.Glue=100
 --|Base.Book=100
@@ -57,6 +58,13 @@
 --|Base.Generator=4000
 --|camping.CampingTentKit=1000
 --|camping.CampfireKit=200
+--|Base.Notebook=50
+--|Base.SheetMetal=50
+--|Base.SmallSheetMetal=50
+--|Base.MetalBar=50
+--|Base.ScrapMetal=50
+--|Base.Wire=50
+--|Base.Log=50
 
 --|[FOOD]
 --|Base.CannedCornedBeef=50
@@ -130,3 +138,5 @@
 --|[SPECIALS]
 --|UI_CoxisShop_Healing=4000
 --|UI_CoxisShop_Repairing=2000
+--|UI_CoxisShop_GetKey=2000
+--|UI_CoxisShop_Repair_Vehicle=2000

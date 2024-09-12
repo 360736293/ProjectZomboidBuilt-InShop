@@ -1,5 +1,6 @@
 require "ISUI/ISPanelJoypad"
 require "ISUI/ISLayoutManager"
+require "Vehicles/ISUI/ISVehicleMechanics"
 
 ISCoxisShopPanelSpecials = ISPanelJoypad:derive("ISCoxisShopPanelSpecials");
 ISCoxisShopList = ISScrollingListBox:derive("ISCoxisShopList");
@@ -120,6 +121,18 @@ function ISCoxisShopPanelSpecials:onBuyMouseDown(button, x, y)
 			if(splitstring[1] == "UI_CoxisShop_Repairing") then
 				getPlayer():getPrimaryHandItem():setCondition(getPlayer():getPrimaryHandItem():getConditionMax());
 				getPlayer():Say(getText("UI_CoxisShop_Completed_Repairing"));
+			end
+
+			--获得车钥匙
+			if(splitstring[1] == "UI_CoxisShop_GetKey") then
+				sendClientCommand(getPlayer(), "vehicle", "getKey", { vehicle = getPlayer():getVehicle():getId() })
+				getPlayer():Say(getText("UI_CoxisShop_Have_Got_Key"));
+			end
+
+			--修复车辆
+			if(splitstring[1] == "UI_CoxisShop_Repair_Vehicle") then
+				sendClientCommand(getPlayer(), "vehicle", "repair", { vehicle = getPlayer():getVehicle():getId() })
+				getPlayer():Say(getText("UI_CoxisShop_Have_Repaired_Vehicle"));
 			end
 
 			--在最后扣钱，避免功能未生效却把钱扣了

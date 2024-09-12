@@ -13,6 +13,8 @@ UI_DE = {
 	UI_CoxisShop_Specials = "Specials",
 	UI_CoxisShop_Healing = "Healing oneself",
 	UI_CoxisShop_Repairing = "Repair the durability of right-hand held equipment",
+	UI_CoxisShop_GetKey = "Get the vehicle key",
+	UI_CoxisShop_Repair_Vehicle = "Repair the vehicle",
 	UI_CoxisShop_PermanentBonus = "Upgrades",
 	UI_CoxisShop_BuyButton = "Buy",
 	UI_CoxisShop_AvailItems = "Available Items",
@@ -23,4 +25,6 @@ UI_DE = {
 	UI_CoxisShop_NoSettings = "The contents available in the shop aren't loaded, will try to load them now. Please try to open the shop again after clicking ok.",
 	UI_CoxisShop_Completed_Healing = "Have completed healing!",
 	UI_CoxisShop_Completed_Repairing = "Have completed repaired the right-hand held equipment durability!",
+	UI_CoxisShop_Have_Got_Key = "Have got a key!",
+	UI_CoxisShop_Have_Repaired_Vehicle = "Have repaired vehicle！",
 }

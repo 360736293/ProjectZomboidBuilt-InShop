@@ -13,6 +13,8 @@ UI_CN = {
 	UI_CoxisShop_Specials = "特殊",
 	UI_CoxisShop_Healing = "治愈自己",
 	UI_CoxisShop_Repairing = "修复右手装备耐久",
+	UI_CoxisShop_GetKey = "获得车钥匙",
+	UI_CoxisShop_Repair_Vehicle = "修复车辆",
 	UI_CoxisShop_PermanentBonus = "升级",
 	UI_CoxisShop_BuyButton = "购买",
 	UI_CoxisShop_AvailItems = "物品列表",
@@ -23,4 +25,6 @@ UI_CN = {
 	UI_CoxisShop_NoSettings = "配置文件正在载入中，请按下确认按钮继续。",
 	UI_CoxisShop_Completed_Healing = "已经完全治愈！",
 	UI_CoxisShop_Completed_Repairing = "已经完全修复右手装备耐久！",
+	UI_CoxisShop_Have_Got_Key = "已获得车钥匙！",
+	UI_CoxisShop_Have_Repaired_Vehicle = "已修复车辆！",
 }
