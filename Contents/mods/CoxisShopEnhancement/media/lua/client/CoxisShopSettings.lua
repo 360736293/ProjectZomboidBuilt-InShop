@@ -139,4 +139,4 @@
 --|UI_CoxisShop_Healing=4000
 --|UI_CoxisShop_Repairing=2000
 --|UI_CoxisShop_GetKey=2000
---|UI_CoxisShop_Repair_Vehicle=2000
+--|UI_CoxisShop_Repair_Vehicle=4000
