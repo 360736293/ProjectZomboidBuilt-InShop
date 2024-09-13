@@ -18,10 +18,15 @@
 --|[VARIOUS]
 --|Base.Money=1
 --|Bag_Schoolbag=100
---|Base.Bag_ALICEpack=500
+--|Base.Bag_NormalHikingBag=200
+--|Base.Bag_BigHikingBag=300
+--|Base.Bag_ALICEpack=800
 --|Base.Bag_ALICEpack_Army=1000
---|Base.Cigarettes=20
+--|Base.Vest_BulletCivilian=200
+--|Base.Vest_BulletPolice=300
+--|Base.Vest_BulletArmy=400
 --|Base.Pan=100
+--|Base.Pot=100
 --|Base.Sledgehammer=2000
 --|Base.Hammer=100
 --|Base.BallPeenHammer=100
@@ -35,6 +40,7 @@
 --|Base.TinOpener=100
 --|Base.Tweezers=100
 --|Base.Needle=100
+--|Base.Tongs=100
 --|Base.SutureNeedle=100
 --|Base.KnittingNeedles=100
 --|farming.HandShovel=100
@@ -78,6 +84,7 @@
 
 --|[FOOD]
 --|Base.CannedCornedBeef=50
+--|Base.CannedFruitBeverage=50
 --|Base.WaterBottleFull=50
 --|Base.WhiskeyFull=100
 
