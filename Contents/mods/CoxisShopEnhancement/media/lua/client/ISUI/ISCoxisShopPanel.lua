@@ -100,11 +100,30 @@ end
 function ISCoxisShopPanel:onSellMouseDown(button, x, y)
 	if button.internal == "sell" then
 		local selectedItem = self.CoxisShopList.items[self.CoxisShopList.selected].item;
-		local splitstring = luautils.split(selectedItem, "|")
-		if selectedItem ~= nil and self.char:getInventory():contains(splitstring[1]) then
+		local splitstring = luautils.split(selectedItem, "|");
+
+		local item = self.char:getInventory():getFirstType(splitstring[1])
+		if selectedItem ~= nil and item ~= nil then
+			--判断所卖物品是否主手装备
+			local primaryHandItem = self.char:getPrimaryHandItem();
+			if primaryHandItem ~= nil and primaryHandItem == item then
+				--是主手装备就清空手持
+				self.char:removeFromHands(primaryHandItem);
+			end
+			--判断所卖物品是否副手装备
+			local secondaryHandItem = self.char:getSecondaryHandItem();
+			if secondaryHandItem ~= nil and secondaryHandItem == item then
+				--是副手装备就清空手持
+				self.char:removeFromHands(secondaryHandItem);
+			end
+			--判断所卖物品是否身上装备
+			if self.char:isEquippedClothing(item) then
+				--是身上装备就脱下来
+				self.char:removeWornItem(item);
+			end
 			--10%价格出售
 			self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney + tonumber(splitstring[2]) * 0.1,0);
-			self.char:getInventory():RemoveOneOf(splitstring[1]);
+			self.char:getInventory():Remove(item);
 		end
 	end
 end
