@@ -54,11 +54,6 @@ end
 
 function ISCoxisShop:render()
 	ISCollapsableWindow.render(self)
-
-	if JoypadState.players[self.playerId+1] then
-		self:drawRectBorder(0, 0, self:getWidth(), self:getHeight(), 0.4, 0.2, 1.0, 1.0);
-		self:drawRectBorder(1, 1, self:getWidth()-2, self:getHeight()-2, 0.4, 0.2, 1.0, 1.0);
-	end
 end
 
 function ISCoxisShop:new(x, y, width, height, player, settings)

@@ -1,5 +1,6 @@
 UI_DE = {
-	UI_ISCoxisShop_WindowTitle = "Coxis Shop",
+	UI_ISCoxisShop_WindowTitle = "Shopping Menu",
+	UI_ISCoxisShopTeleport_WindowTitle = "Teleport Menu",
     UI_CoxisShop_Px_Money = "Player %1 Money : %2",
 	UI_CoxisShop_Food = "Food/Drinks",
 	UI_CoxisShop_Various = "Various",
@@ -15,6 +16,8 @@ UI_DE = {
 	UI_CoxisShop_Repairing = "Repair the durability of right-hand held equipment",
 	UI_CoxisShop_GetKey = "Get the vehicle key",
 	UI_CoxisShop_Repair_Vehicle = "Repair the vehicle",
+	UI_CoxisShop_Copy_RH_Equipment = "Copy right-hand held equipment",
+	UI_CoxisShop_Teleport = "Teleport",
 	UI_CoxisShop_PermanentBonus = "Upgrades",
 	UI_CoxisShop_BuyButton = "Buy",
 	UI_CoxisShop_SellButton = "Sell(10%)",
@@ -24,8 +27,4 @@ UI_DE = {
 	UI_optionscreen_binding_CoxisShop = "Coxis Shop",
 	UI_optionscreen_binding_OpenCoxisShop = "Open shop",
 	UI_CoxisShop_NoSettings = "The contents available in the shop aren't loaded, will try to load them now. Please try to open the shop again after clicking ok.",
-	UI_CoxisShop_Completed_Healing = "Have completed healing!",
-	UI_CoxisShop_Completed_Repairing = "Have completed repaired the right-hand held equipment durability!",
-	UI_CoxisShop_Have_Got_Key = "Have got a key!",
-	UI_CoxisShop_Have_Repaired_Vehicle = "Have repaired vehicle！",
 }

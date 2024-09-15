@@ -157,3 +157,5 @@
 --|UI_CoxisShop_Repairing=2000
 --|UI_CoxisShop_GetKey=2000
 --|UI_CoxisShop_Repair_Vehicle=4000
+--|UI_CoxisShop_Copy_RH_Equipment=4000
+--|UI_CoxisShop_Teleport=1000

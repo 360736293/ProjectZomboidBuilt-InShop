@@ -1,6 +1,7 @@
 require "ISUI/ISPanelJoypad"
 require "ISUI/ISLayoutManager"
 require "Vehicles/ISUI/ISVehicleMechanics"
+require 'CoxisShop'
 
 ISCoxisShopPanelSpecials = ISPanelJoypad:derive("ISCoxisShopPanelSpecials");
 ISCoxisShopList = ISScrollingListBox:derive("ISCoxisShopList");
@@ -8,6 +9,8 @@ ISCoxisScrollbar = ISScrollBar:derive("ISCoxisScrollbar");
 
 CoxisShopUI = {};
 CoxisShopUI.items = {};
+-- 玩家传送UI界面对象数组
+CoxisShop.teleportScreen = {};
 
 --初始化面板
 function ISCoxisShopPanelSpecials:initialise()
@@ -63,7 +66,6 @@ function ISCoxisShopPanelSpecials:createItemButton(x, y, itemType, cost)
 	end
 	local button = ISButton:new(x, y, 100, 25, label, self, ISCoxisShopPanelSpecials.onOptionMouseDown);
 	button:initialise();
-	button.internal = "item";
 	button.item = itemType;
 	button.cost = cost;
 	button.borderColor = {r=1, g=1, b=1, a=0.1};
@@ -80,7 +82,6 @@ function ISCoxisShopPanelSpecials:createButton(x, y, _function, player, playerId
 	label = getText('UI_CoxisShop_BuyButton')
 	local button = ISButton:new(x, y, 100, 25, label, self, _function);
 	button:initialise();
-	button.internal = "buy";
 	button.borderColor = {r=1, g=1, b=1, a=0.1};
 	button.playerId = playerId;
 	button.char = player;
@@ -93,39 +94,70 @@ end
 
 --点击购买按钮
 function ISCoxisShopPanelSpecials:onBuyMouseDown(button, x, y)
-	if button.internal == "buy" then
-		local selectedFunction = self.CoxisShopList.items[self.CoxisShopList.selected].item
-		--获取商品
-		local splitstring = luautils.split(selectedFunction, "|");
-		if selectedFunction ~= nil and self.char:getModData().playerMoney >= tonumber(splitstring[2]) then
+	local selectedFunction = self.CoxisShopList.items[self.CoxisShopList.selected].item
+	--获取商品
+	local splitstring = luautils.split(selectedFunction, "|");
+	if selectedFunction ~= nil and self.char:getModData().playerMoney >= tonumber(splitstring[2]) then
 
-			--治愈自己
-			if(splitstring[1] == "UI_CoxisShop_Healing") then
-				getPlayer():getBodyDamage():RestoreToFullHealth();
-				getPlayer():Say(getText("UI_CoxisShop_Completed_Healing"));
-			end
-
-			--修复右手装备耐久
-			if(splitstring[1] == "UI_CoxisShop_Repairing") then
-				getPlayer():getPrimaryHandItem():setCondition(getPlayer():getPrimaryHandItem():getConditionMax());
-				getPlayer():Say(getText("UI_CoxisShop_Completed_Repairing"));
-			end
-
-			--获得车钥匙
-			if(splitstring[1] == "UI_CoxisShop_GetKey") then
-				sendClientCommand(getPlayer(), "vehicle", "getKey", { vehicle = getPlayer():getVehicle():getId() })
-				getPlayer():Say(getText("UI_CoxisShop_Have_Got_Key"));
-			end
-
-			--修复车辆
-			if(splitstring[1] == "UI_CoxisShop_Repair_Vehicle") then
-				sendClientCommand(getPlayer(), "vehicle", "repair", { vehicle = getPlayer():getVehicle():getId() })
-				getPlayer():Say(getText("UI_CoxisShop_Have_Repaired_Vehicle"));
-			end
-
-			--在最后扣钱，避免功能未生效却把钱扣了
-			self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney - tonumber(splitstring[2]),0);
+		--治愈自己
+		if(splitstring[1] == "UI_CoxisShop_Healing") then
+			getPlayer():getBodyDamage():RestoreToFullHealth();
 		end
+
+		--修复右手装备耐久
+		if(splitstring[1] == "UI_CoxisShop_Repairing") then
+			getPlayer():getPrimaryHandItem():setCondition(getPlayer():getPrimaryHandItem():getConditionMax());
+		end
+
+		--获得车钥匙
+		if(splitstring[1] == "UI_CoxisShop_GetKey") then
+			sendClientCommand(getPlayer(), "vehicle", "getKey", { vehicle = getPlayer():getVehicle():getId() })
+		end
+
+		--修复车辆
+		if(splitstring[1] == "UI_CoxisShop_Repair_Vehicle") then
+			sendClientCommand(getPlayer(), "vehicle", "repair", { vehicle = getPlayer():getVehicle():getId() })
+		end
+
+		--复制右手装备
+		if(splitstring[1] == "UI_CoxisShop_Copy_RH_Equipment") then
+			local primaryHandItem = self.char:getPrimaryHandItem();
+			if primaryHandItem ~= nil then
+				self.char:getInventory():AddItem(primaryHandItem:getType());
+			else
+				return;
+			end
+		end
+
+		--传送
+		if(splitstring[1] == "UI_CoxisShop_Teleport") then
+			--打开传送坐标面板
+			CoxisShop.showTeleportScreen(CoxisShop.getCurrentPlayerIndexNum());
+		end
+
+		--在最后扣钱，避免功能未生效却把钱扣了
+		self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney - tonumber(splitstring[2]),0);
+	end
+end
+
+--显示传送面板UI
+CoxisShop.showTeleportScreen = function(playerNum)
+	if not CoxisShop.teleportScreen[playerNum] then
+		local x = getPlayerScreenLeft(playerNum);
+		local y = getPlayerScreenTop(playerNum);
+		-- 初始化UI界面对象
+		CoxisShop.teleportScreen[playerNum] = ISCoxisShopTeleport:new(x+215,y+180,270,185,playerNum);
+		CoxisShop.teleportScreen[playerNum]:initialise();
+		CoxisShop.teleportScreen[playerNum]:addToUIManager();
+		-- 初始化为false，只有为false下面的判断才会setVisible为true
+		CoxisShop.teleportScreen[playerNum]:setVisible(false);
+	end
+
+	-- 开关UI界面
+	if CoxisShop.teleportScreen[playerNum]:getIsVisible() then
+		CoxisShop.teleportScreen[playerNum]:setVisible(false)
+	else
+		CoxisShop.teleportScreen[playerNum]:setVisible(true)
 	end
 end
 
@@ -148,7 +180,6 @@ end
 
 function ISCoxisShopList:new(x, y, width, height, player, playerId, parent)
 	local o = {}
-	--o.data = {}
 	o = ISPanelJoypad:new(x, y, width, height);
 	setmetatable(o, self)
 	self.__index = self
@@ -158,7 +189,6 @@ function ISCoxisShopList:new(x, y, width, height, player, playerId, parent)
 	o.backgroundColor = {r=0, g=0, b=0, a=0.8};
 	o.borderColor = {r=0.4, g=0.4, b=0.4, a=0.9};
 	o.altBgColor = {r=0.2, g=0.3, b=0.2, a=0.1}
-	-- Since these were broken before, don't draw them by default
 	o.altBgColor = nil
 	o.drawBorder = false
 	o.width = width;
