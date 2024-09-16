@@ -1,6 +1,7 @@
 UI_DE = {
 	UI_ISCoxisShop_WindowTitle = "Shopping Menu",
 	UI_ISCoxisShopTeleport_WindowTitle = "Teleport Menu",
+	UI_ISCoxisShopGet_WindowTitle = "Get Menu",
     UI_CoxisShop_Px_Money = "Player %1 Money : %2",
 	UI_CoxisShop_Food = "Food/Drinks",
 	UI_CoxisShop_Various = "Various",
@@ -18,6 +19,8 @@ UI_DE = {
 	UI_CoxisShop_Repair_Vehicle = "Repair the vehicle",
 	UI_CoxisShop_Copy_RH_Equipment = "Copy right-hand held equipment",
 	UI_CoxisShop_Teleport = "Teleport",
+	UI_CoxisShop_Confirm = "Confirm",
+	UI_CoxisShop_Get_By_Type = "Get specified item",
 	UI_CoxisShop_PermanentBonus = "Upgrades",
 	UI_CoxisShop_BuyButton = "Buy",
 	UI_CoxisShop_SellButton = "Sell(10%)",

@@ -154,9 +154,10 @@
 --|Strength=600
 
 --|[SPECIALS]
---|UI_CoxisShop_Healing=4000
+--|UI_CoxisShop_Healing=5000
 --|UI_CoxisShop_Repairing=2000
 --|UI_CoxisShop_GetKey=2000
 --|UI_CoxisShop_Repair_Vehicle=4000
 --|UI_CoxisShop_Copy_RH_Equipment=4000
 --|UI_CoxisShop_Teleport=1000
+--|UI_CoxisShop_Get_By_Type=4000

@@ -1,6 +1,7 @@
 UI_CN = {
 	UI_ISCoxisShop_WindowTitle = "购买菜单",
 	UI_ISCoxisShopTeleport_WindowTitle = "传送菜单",
+	UI_ISCoxisShopGet_WindowTitle = "获取菜单",
 	UI_CoxisShop_Px_Money = "玩家 %1 金钱：%2",
 	UI_CoxisShop_Food = "食物/饮料",
 	UI_CoxisShop_Various = "杂项",
@@ -18,6 +19,8 @@ UI_CN = {
 	UI_CoxisShop_Repair_Vehicle = "修复车辆",
 	UI_CoxisShop_Copy_RH_Equipment = "复制右手装备",
 	UI_CoxisShop_Teleport = "传送",
+	UI_CoxisShop_Confirm = "确定",
+	UI_CoxisShop_Get_By_Type = "获取指定物品",
 	UI_CoxisShop_PermanentBonus = "升级",
 	UI_CoxisShop_BuyButton = "购买",
 	UI_CoxisShop_SellButton = "售卖(10%)",

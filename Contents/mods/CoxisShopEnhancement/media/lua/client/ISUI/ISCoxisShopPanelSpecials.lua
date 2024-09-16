@@ -11,6 +11,8 @@ CoxisShopUI = {};
 CoxisShopUI.items = {};
 -- 玩家传送UI界面对象数组
 CoxisShop.teleportScreen = {};
+-- 玩家获取物品UI界面对象数组
+CoxisShop.getScreen = {};
 
 --初始化面板
 function ISCoxisShopPanelSpecials:initialise()
@@ -135,6 +137,12 @@ function ISCoxisShopPanelSpecials:onBuyMouseDown(button, x, y)
 			CoxisShop.showTeleportScreen(CoxisShop.getCurrentPlayerIndexNum());
 		end
 
+		--获取指定物品
+		if(splitstring[1] == "UI_CoxisShop_Get_By_Type") then
+			--打开获取指定物品面板
+			CoxisShop.showGetScreen(CoxisShop.getCurrentPlayerIndexNum());
+		end
+
 		--在最后扣钱，避免功能未生效却把钱扣了
 		self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney - tonumber(splitstring[2]),0);
 	end
@@ -158,6 +166,27 @@ CoxisShop.showTeleportScreen = function(playerNum)
 		CoxisShop.teleportScreen[playerNum]:setVisible(false)
 	else
 		CoxisShop.teleportScreen[playerNum]:setVisible(true)
+	end
+end
+
+--显示获取指定物品面板UI
+CoxisShop.showGetScreen = function(playerNum)
+	if not CoxisShop.getScreen[playerNum] then
+		local x = getPlayerScreenLeft(playerNum);
+		local y = getPlayerScreenTop(playerNum);
+		-- 初始化UI界面对象
+		CoxisShop.getScreen[playerNum] = ISCoxisShopGet:new(x+215,y+180,270,185,playerNum);
+		CoxisShop.getScreen[playerNum]:initialise();
+		CoxisShop.getScreen[playerNum]:addToUIManager();
+		-- 初始化为false，只有为false下面的判断才会setVisible为true
+		CoxisShop.getScreen[playerNum]:setVisible(false);
+	end
+
+	-- 开关UI界面
+	if CoxisShop.getScreen[playerNum]:getIsVisible() then
+		CoxisShop.getScreen[playerNum]:setVisible(false)
+	else
+		CoxisShop.getScreen[playerNum]:setVisible(true)
 	end
 end
 
