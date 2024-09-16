@@ -81,6 +81,7 @@
 --|Radio.ElectricWire=100
 --|Base.Charcoal=100
 --|Base.Log=50
+--|Base.BackpackExpansion=1000
 
 --|[FOOD]
 --|Base.CannedCornedBeef=50

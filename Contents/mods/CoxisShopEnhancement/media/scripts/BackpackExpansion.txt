@@ -1,0 +1,13 @@
+module Base
+{
+	item BackpackExpansion
+	{
+                DisplayCategory         = Junk,
+                Weight	                = -10,
+                Type	                = Normal,
+                DisplayName	        = 背包扩容(10kg),
+                Icon	                = Cube,
+		StaticModel             = CubePuzzle,
+		WorldStaticModel        = Cube_Ground,
+	}
+}
