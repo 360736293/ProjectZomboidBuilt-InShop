@@ -1,4 +1,5 @@
 require 'CoxisUtil'
+require 'ISCoxisShop'
 
 CoxisShop = {};
 -- mod保存数据数组，存储每个玩家如金钱等数据
@@ -58,13 +59,15 @@ local function showUpgradeScreen(playerNum)
 		CoxisShop.upgradeScreen[playerNum]:addToUIManager();
 		-- 初始化为false，只有为false下面的判断才会setVisible为true
 		CoxisShop.upgradeScreen[playerNum]:setVisible(false);
+	else
+		-- 初始化之后，每次开关面板都要重新加载技能面板更新技能列表
+		ISCoxisShop.skillPannelInstance[playerNum]:reloadSkillItems();
 	end
-
 	-- 开关UI界面
 	if CoxisShop.upgradeScreen[playerNum]:getIsVisible() then
-		CoxisShop.upgradeScreen[playerNum]:setVisible(false)
+		CoxisShop.upgradeScreen[playerNum]:setVisible(false);
 	else
-		CoxisShop.upgradeScreen[playerNum]:setVisible(true)
+		CoxisShop.upgradeScreen[playerNum]:setVisible(true);
 	end
 end
 

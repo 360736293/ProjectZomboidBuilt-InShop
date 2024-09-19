@@ -1,7 +1,9 @@
 require "ISUI/ISCollapsableWindow"
+require 'CoxisShop'
 
 ISCoxisShop = ISCollapsableWindow:derive("ISCoxisShop");
-ISCoxisShop.instance = {}
+ISCoxisShop.instance = {};
+ISCoxisShop.skillPannelInstance = {};
 
 function ISCoxisShop:initialise()
 	ISCollapsableWindow.initialise(self);
@@ -43,6 +45,7 @@ function ISCoxisShop:createChildren()
 	self.playerScreen = ISCoxisShopPanelSkills:new(0, 8, 400, 400, self.playerId, self.settings["SKILLS"]);
 	self.playerScreen:initialise();
 	self.panel:addView(getText('UI_CoxisShop_Player'), self.playerScreen);
+	self.skillPannelInstance[self.playerId] = self.playerScreen;
 	-------------------------
 
 	-- Tab with specials
