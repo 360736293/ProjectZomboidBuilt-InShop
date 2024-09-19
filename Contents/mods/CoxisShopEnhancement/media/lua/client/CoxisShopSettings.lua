@@ -25,7 +25,7 @@
 --|Base.Vest_BulletCivilian=200
 --|Base.Vest_BulletPolice=300
 --|Base.Vest_BulletArmy=400
---|Base.Belt=100
+--|Base.Belt2=100
 --|Base.DigitalWatch=100
 --|Base.Pan=100
 --|Base.Pot=100
