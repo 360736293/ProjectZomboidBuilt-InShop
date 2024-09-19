@@ -25,6 +25,8 @@
 --|Base.Vest_BulletCivilian=200
 --|Base.Vest_BulletPolice=300
 --|Base.Vest_BulletArmy=400
+--|Base.Belt=100
+--|Base.DigitalWatch=100
 --|Base.Pan=100
 --|Base.Pot=100
 --|Base.Sledgehammer=2000
@@ -40,6 +42,8 @@
 --|Base.TinOpener=100
 --|Base.Tweezers=100
 --|Base.Needle=100
+--|Base.Thread=100
+--|Base.LeatherStrips=10
 --|Base.Tongs=100
 --|Base.SutureNeedle=100
 --|Base.KnittingNeedles=100
@@ -59,6 +63,8 @@
 --|Base.Glue=100
 --|Base.Book=100
 --|Base.Garbagebag=100
+--|Base.Mop=100
+--|Base.Bleach=100
 --|Base.CarBatteryCharger=1000
 --|Base.PetrolCan=1000
 --|Base.MechanicMag1=500
@@ -114,6 +120,12 @@
 --|Base.308Clip=100
 --|Base.556Clip=100
 --|Base.M14Clip=100
+--|farming.BroccoliBagSeed=100
+--|farming.CabbageBagSeed=100
+--|farming.CarrotBagSeed=100
+--|farming.PotatoBagSeed=100
+--|farming.StrewberrieBagSeed=100
+--|farming.TomatoBagSeed=100
 
 --|[MEDICINES]
 --|Base.AlcoholBandage=20
