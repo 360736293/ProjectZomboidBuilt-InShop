@@ -173,3 +173,4 @@
 --|UI_CoxisShop_Copy_RH_Equipment=4000
 --|UI_CoxisShop_Teleport=1000
 --|UI_CoxisShop_Get_By_Type=4000
+--|UI_CoxisShop_Learn_All_Recipes=4000

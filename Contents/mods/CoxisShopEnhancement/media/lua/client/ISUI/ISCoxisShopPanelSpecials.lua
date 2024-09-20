@@ -143,6 +143,18 @@ function ISCoxisShopPanelSpecials:onBuyMouseDown(button, x, y)
 			CoxisShop.showGetScreen(CoxisShop.getCurrentPlayerIndexNum());
 		end
 
+		--学习全部配方
+		if(splitstring[1] == "UI_CoxisShop_Learn_All_Recipes") then
+			local recipes = getAllRecipes()
+			for i = 0,recipes:size() - 1 do
+				local recipe = recipes:get(i)
+				if not getPlayer():isRecipeKnown(recipe) and recipe:needToBeLearn() then
+					getPlayer():getKnownRecipes():add(recipe:getOriginalname());
+				end
+			end
+			getPlayer():Say(getText('UI_CoxisShop_Learn_All_Recipes_End'));
+		end
+
 		--在最后扣钱，避免功能未生效却把钱扣了
 		self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney - tonumber(splitstring[2]),0);
 	end
