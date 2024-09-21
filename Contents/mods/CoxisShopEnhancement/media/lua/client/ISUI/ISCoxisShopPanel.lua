@@ -1,5 +1,6 @@
 require "ISUI/ISPanelJoypad"
 require "ISUI/ISLayoutManager"
+require "CoxisShop"
 
 ISCoxisShopPanel = ISPanelJoypad:derive("ISCoxisShopPanel");
 ISCoxisShopList = ISScrollingListBox:derive("ISCoxisShopList");
@@ -121,8 +122,14 @@ function ISCoxisShopPanel:onSellMouseDown(button, x, y)
 				--是身上装备就脱下来
 				self.char:removeWornItem(item);
 			end
-			--10%价格出售
-			self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney + tonumber(splitstring[2]) * 0.1,0);
+			--判断是否有[SPECIFICATION_SELLING]标签售价
+			if CoxisShop.settings["SPECIFICATION_SELLING"][splitstring[1]] ~= nil then
+				--按标签售价出售
+				self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney + tonumber(CoxisShop.settings["SPECIFICATION_SELLING"][splitstring[1]]),0);
+			else
+				--按10%价格出售
+				self.char:getModData().playerMoney = luautils.round(self.char:getModData().playerMoney + tonumber(splitstring[2]) * 0.1,0);
+			end
 			self.char:getInventory():Remove(item);
 		end
 	end

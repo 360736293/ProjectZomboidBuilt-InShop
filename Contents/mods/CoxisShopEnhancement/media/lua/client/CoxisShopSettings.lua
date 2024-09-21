@@ -1,19 +1,20 @@
 ----------------------------------------------------------------------------------------
 --1、添加新物品前缀一定要加上--|，这是识别前缀，不然不会认这条记录。
 --2、MOD物品也是可以添加到这里的，但是一定要注意MOD中给物品定义的module。如果指定MOD物品定义的module为Base，那么就是Base.item名，如果是AAABBB，那么就是AAABBB.item名。
+--3、因为部分道具售价问题仅仅依靠百分之十的价格出售无法满足，比如钱和香烟，所以[SPECIFICATION_SELLING]标签定义的为指定售价，当出售道具时，会优先获取该标签的定价出售。
 --
 --
---initiateMoney：新建人物金钱数
+--initialMoney
 --amount：僵尸击杀获得金钱数
 --daily：每日奖励金钱数
 --bonus：每日奖励额外金钱数倍数，每日奖励额外金钱数 = 玩家总金额 * bonus值
 ----------------------------------------------------------------------------------------
 
 --|[BASIC]
---|initiateMoney=2000
+--|initialMoney=2000
 --|amount=5
---|daily=100
---|bonus=0.01
+--|daily=0
+--|bonus=0.025
 
 --|[VARIOUS]
 --|Base.Money=1
@@ -55,6 +56,7 @@
 --|Base.PropaneTank=100
 --|Base.TirePump=100
 --|Base.Lighter=100
+--|Base.Cigarettes=20
 --|Base.Battery=100
 --|Base.NailsBox=100
 --|Base.PaperclipBox=100
@@ -174,3 +176,7 @@
 --|UI_CoxisShop_Teleport=1000
 --|UI_CoxisShop_Get_By_Type=4000
 --|UI_CoxisShop_Learn_All_Recipes=4000
+
+--|[SPECIFICATION_SELLING]
+--|Base.Money=1
+--|Base.Cigarettes=1

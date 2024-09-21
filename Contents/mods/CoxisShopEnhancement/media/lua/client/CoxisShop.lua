@@ -38,7 +38,7 @@ CoxisShop.InitPlayer = function()
 		CoxisShop.modData[playerIndex].playerMoney = CoxisShop.playerMoneyTemp[playerIndex];
 	else
 		-- 刚创建角色的首次初始化
-		CoxisShop.modData[playerIndex].playerMoney = CoxisShop.modData[playerIndex].playerMoney or tonumber(CoxisShop.settings["BASIC"]["initiateMoney"]);
+		CoxisShop.modData[playerIndex].playerMoney = CoxisShop.modData[playerIndex].playerMoney or tonumber(CoxisShop.settings["BASIC"]["initialMoney"]);
 	end
 
 	-- 从modData中读取玩家僵尸击杀数
