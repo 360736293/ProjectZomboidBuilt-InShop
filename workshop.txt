@@ -21,5 +21,5 @@ description=
 description=具体数值以及商店购买内容可以自己在MOD目录下media/lua/client/CoxisShopSettings.lua文件内进行修改。MOD物品也是可以自定义添加到本内置商店里面购买的，具体注意事项可以参考配置文件。建议手动保存一下自己配置的CoxisShopSettings.lua文件，避免因为MOD更新而丢失了自己的配置。
 description=
 description=注意：多人模式使用本MOD可能会有未知问题。
-tags=Build 40;Build 41;Misc
+tags=Build 40;Build 41;Build 42;Misc
 visibility=public
