@@ -33,7 +33,7 @@ function ISCoxisShopPanelSkills:create()
 	self.CoxisShopList = ISCoxisShopList:new(16, y + 30, 390, 200, self.char, self.playerId, self);
     self.CoxisShopList:initialise()
     self.CoxisShopList:instantiate()
-    self.CoxisShopList.itemheight = 22
+    self.CoxisShopList.itemheight = 32
     self.CoxisShopList.font = UIFont.NewSmall
     self.CoxisShopList.drawBorder = true
     self:addChild(self.CoxisShopList)
