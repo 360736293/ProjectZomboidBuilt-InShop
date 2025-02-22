@@ -36,7 +36,7 @@ function ISCoxisShopPanel:create()
 	--self.CoxisShopList:addColumn("Items", 0);
     self.CoxisShopList:initialise()
     self.CoxisShopList:instantiate()
-    self.CoxisShopList.itemheight = 22
+    self.CoxisShopList.itemheight = 32
 	self.CoxisShopList.columns = {};
     self.CoxisShopList.font = UIFont.NewSmall
     self.CoxisShopList.drawBorder = true
