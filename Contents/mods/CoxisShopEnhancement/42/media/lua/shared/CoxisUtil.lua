@@ -6,41 +6,201 @@ CoxisUtil = {};
 -- 读Lua
 -- **************************************************************************************
 CoxisUtil.readLua = function(_modID, _filename)
-	local settingsFile = getModFileReader(_modID, _filename, true);
-	print("**************")
-	print(_modID)
-	print(_filename)
-	print(settingsFile)
-	print("**************")
 	local inidata = {};
-	local line = nil;
-	local section = "empty";
-	local sectionFound = false;
-	local keyFound = false;
-	while true do
-		line = settingsFile:readLine();
-		if line == nil then
-			settingsFile:close();
-			break;
-		end
-		if (luautils.stringStarts(line, "--|[")) then
-			section = string.sub(line, 5, -2);
-			inidata[section] = {};
-			sectionFound = true;
-		end
-		if (luautils.stringStarts(line, "--|")) then
-			line = string.sub(line, 4, -1);
-			local splitedLine = string.split(line, "=");
-			local key = splitedLine[1];
-			local value = splitedLine[2];
-			inidata[section][key] = value;
-			keyFound = true;
-		end
-	end
-	if sectionFound and keyFound then
-		return inidata;
-	end
-	return nil;
+	-- local settingsFile = getModFileReader(_modID, _filename, false);
+	-- local line = nil;
+	-- local section = nil;
+	-- while true do
+	-- 	line = settingsFile:readLine();
+	-- 	if line == nil then
+	-- 		settingsFile:close();
+	-- 		break;
+	-- 	end
+	-- 	if (luautils.stringStarts(line, "--|[")) then
+	-- 		section = string.sub(line, 5, -2);
+	-- 		inidata[section] = {};
+	-- 	end
+	-- 	if (luautils.stringStarts(line, "--|")) then
+	-- 		line = string.sub(line, 4, -1);
+	-- 		local splitedLine = string.split(line, "=");
+	-- 		local key = splitedLine[1];
+	-- 		local value = splitedLine[2];
+	-- 		inidata[section][key] = value;
+	-- 	end
+	-- end
+
+	inidata["BASIC"] = {}
+	inidata["BASIC"]["initialMoney"] = "2000"
+	inidata["BASIC"]["amount"] = "5"
+	inidata["BASIC"]["daily"] = "0"
+	inidata["BASIC"]["bonus"] = "0.025"
+
+	inidata["VARIOUS"] = {}
+	inidata["VARIOUS"]["Base.Money"] = "1"
+	inidata["VARIOUS"]["Bag_Schoolbag"] = "100"
+	inidata["VARIOUS"]["Base.Bag_NormalHikingBag"] = "200"
+	inidata["VARIOUS"]["Base.Bag_BigHikingBag"] = "300"
+	inidata["VARIOUS"]["Base.Bag_ALICEpack"] = "800"
+	inidata["VARIOUS"]["Base.Bag_ALICEpack_Army"] = "1000"
+	inidata["VARIOUS"]["Base.Vest_BulletCivilian"] = "200"
+	inidata["VARIOUS"]["Base.Vest_BulletPolice"] = "300"
+	inidata["VARIOUS"]["Base.Vest_BulletArmy"] = "400"
+	inidata["VARIOUS"]["Base.Belt2"] = "100"
+	-- inidata["VARIOUS"]["Base.DigitalWatch"] = "100"
+	-- inidata["VARIOUS"]["Base.Pan"] = "100"
+	-- inidata["VARIOUS"]["Base.Pot"] = "100"
+	-- inidata["VARIOUS"]["Base.Sledgehammer"] = "2000"
+	-- inidata["VARIOUS"]["Base.Hammer"] = "100"
+	-- inidata["VARIOUS"]["Base.BallPeenHammer"] = "100"
+	-- inidata["VARIOUS"]["Base.Screwdriver"] = "100"
+	-- inidata["VARIOUS"]["Base.Saw"] = "100"
+	-- inidata["VARIOUS"]["Base.Wrench"] = "100"
+	-- inidata["VARIOUS"]["Base.LugWrench"] = "100"
+	-- inidata["VARIOUS"]["Base.TirePump"] = "100"
+	-- inidata["VARIOUS"]["Base.Scissors"] = "100"
+	-- inidata["VARIOUS"]["Base.Jack"] = "100"
+	-- inidata["VARIOUS"]["Base.TinOpener"] = "100"
+	-- inidata["VARIOUS"]["Base.Tweezers"] = "100"
+	-- inidata["VARIOUS"]["Base.Needle"] = "100"
+	-- inidata["VARIOUS"]["Base.Thread"] = "100"
+	-- inidata["VARIOUS"]["Base.LeatherStrips"] = "10"
+	-- inidata["VARIOUS"]["Base.Tongs"] = "100"
+	-- inidata["VARIOUS"]["Base.SutureNeedle"] = "100"
+	-- inidata["VARIOUS"]["Base.KnittingNeedles"] = "100"
+	-- inidata["VARIOUS"]["farming.HandShovel"] = "100"
+	-- inidata["VARIOUS"]["farming.GardeningSprayFull"] = "100"
+	-- inidata["VARIOUS"]["Base.PipeWrench"] = "100"
+	-- inidata["VARIOUS"]["Base.WeldingMask"] = "100"
+	-- inidata["VARIOUS"]["Base.BlowTorch"] = "100"
+	-- inidata["VARIOUS"]["Base.PropaneTank"] = "100"
+	-- inidata["VARIOUS"]["Base.Lighter"] = "100"
+	-- inidata["VARIOUS"]["Base.Cigarettes"] = "20"
+	-- inidata["VARIOUS"]["Base.Battery"] = "100"
+	-- inidata["VARIOUS"]["Base.NailsBox"] = "100"
+	-- inidata["VARIOUS"]["Base.PaperclipBox"] = "100"
+	-- inidata["VARIOUS"]["Base.ScrewsBox"] = "100"
+	-- inidata["VARIOUS"]["Base.DuctTape"] = "100"
+	-- inidata["VARIOUS"]["Base.Glue"] = "100"
+	-- inidata["VARIOUS"]["Base.Book"] = "100"
+	-- inidata["VARIOUS"]["Base.Garbagebag"] = "100"
+	-- inidata["VARIOUS"]["Base.Mop"] = "100"
+	-- inidata["VARIOUS"]["Base.Bleach"] = "100"
+	-- inidata["VARIOUS"]["Base.CarBatteryCharger"] = "1000"
+	-- inidata["VARIOUS"]["Base.PetrolCan"] = "1000"
+	-- inidata["VARIOUS"]["Base.MechanicMag1"] = "500"
+	-- inidata["VARIOUS"]["Base.MechanicMag2"] = "500"
+	-- inidata["VARIOUS"]["Base.MechanicMag3"] = "500"
+	-- inidata["VARIOUS"]["Base.ElectronicsMag4"] = "1000"
+	-- inidata["VARIOUS"]["Base.Generator"] = "4000"
+	-- inidata["VARIOUS"]["camping.CampingTentKit"] = "1000"
+	-- inidata["VARIOUS"]["camping.CampfireKit"] = "200"
+	-- inidata["VARIOUS"]["Base.Notebook"] = "100"
+	-- inidata["VARIOUS"]["Base.SheetMetal"] = "100"
+	-- inidata["VARIOUS"]["Base.SmallSheetMetal"] = "100"
+	-- inidata["VARIOUS"]["Base.MetalBar"] = "100"
+	-- inidata["VARIOUS"]["Base.MetalPipe"] = "100"
+	-- inidata["VARIOUS"]["Base.ScrapMetal"] = "100"
+	-- inidata["VARIOUS"]["Base.ElectronicsScrap"] = "100"
+	-- inidata["VARIOUS"]["Base.Battery"] = "100"
+	-- inidata["VARIOUS"]["Base.WeldingRods"] = "100"
+	-- inidata["VARIOUS"]["Base.Wire"] = "100"
+	-- inidata["VARIOUS"]["Radio.ElectricWire"] = "100"
+	-- inidata["VARIOUS"]["Base.Charcoal"] = "100"
+	-- inidata["VARIOUS"]["Base.Log"] = "50"
+	-- inidata["VARIOUS"]["Base.BackpackExpansion"] = "1000"
+
+	inidata["FOOD"] = {}
+	-- inidata["FOOD"]["Base.CannedCornedBeef"] = "50"
+	-- inidata["FOOD"]["Base.CannedFruitBeverage"] = "50"
+	-- inidata["FOOD"]["Base.WaterBottleFull"] = "50"
+	-- inidata["FOOD"]["Base.WhiskeyFull"] = "100"
+
+	inidata["WEAPONS"] = {}
+	-- inidata["WEAPONS"]["Base.KitchenKnife"] = "100"
+	-- inidata["WEAPONS"]["Base.HuntingKnife"] = "200"
+	-- inidata["WEAPONS"]["Base.BaseballBat"] = "200"
+	-- inidata["WEAPONS"]["Base.Crowbar"] = "300"
+	-- inidata["WEAPONS"]["Base.Axe"] = "400"
+	-- inidata["WEAPONS"]["Base.PickAxe"] = "500"
+	-- inidata["WEAPONS"]["Base.Katana"] = "2000"
+	-- inidata["WEAPONS"]["Base.Shotgun"] = "1000"
+	-- inidata["WEAPONS"]["Base.Pistol"] = "1000"
+	-- inidata["WEAPONS"]["Base.ShotgunShellsBox"] = "200"
+	-- inidata["WEAPONS"]["Base.Bullets9mmBox"] = "200"
+	-- inidata["WEAPONS"]["Base.Bullets38Box"] = "200"
+	-- inidata["WEAPONS"]["Base.Bullets44Box"] = "200"
+	-- inidata["WEAPONS"]["Base.Bullets45Box"] = "200"
+	-- inidata["WEAPONS"]["Base.223Box"] = "200"
+	-- inidata["WEAPONS"]["Base.308Box"] = "200"
+	-- inidata["WEAPONS"]["Base.556Box"] = "200"
+	-- inidata["WEAPONS"]["Base.9mmClip"] = "100"
+	-- inidata["WEAPONS"]["Base.44Clip"] = "100"
+	-- inidata["WEAPONS"]["Base.45Clip"] = "100"
+	-- inidata["WEAPONS"]["Base.223Clip"] = "100"
+	-- inidata["WEAPONS"]["Base.308Clip"] = "100"
+	-- inidata["WEAPONS"]["Base.556Clip"] = "100"
+	-- inidata["WEAPONS"]["Base.M14Clip"] = "100"
+	-- inidata["WEAPONS"]["farming.BroccoliBagSeed"] = "100"
+	-- inidata["WEAPONS"]["farming.CabbageBagSeed"] = "100"
+	-- inidata["WEAPONS"]["farming.CarrotBagSeed"] = "100"
+	-- inidata["WEAPONS"]["farming.PotatoBagSeed"] = "100"
+	-- inidata["WEAPONS"]["farming.StrewberrieBagSeed"] = "100"
+	-- inidata["WEAPONS"]["farming.TomatoBagSeed"] = "100"
+
+	inidata["MEDICINES"] = {}
+	-- inidata["MEDICINES"]["Base.AlcoholBandage"] = "20"
+	-- inidata["MEDICINES"]["Base.AlcoholWipes"] = "20"
+	-- inidata["MEDICINES"]["Base.PillsBeta"] = "100"
+	-- inidata["MEDICINES"]["Base.Pills"] = "100"
+	-- inidata["MEDICINES"]["Base.PillsAntiDep"] = "100"
+	-- inidata["MEDICINES"]["Base.Antibiotics"] = "100"
+	-- inidata["MEDICINES"]["Base.PillsVitamins"] = "100"
+	-- inidata["MEDICINES"]["Base.PillsSleepingTablets"] = "100"
+
+	inidata["SKILLS"] = {}
+	inidata["SKILLS"]["Sprinting"] = "600"
+	inidata["SKILLS"]["Lightfoot"] = "600"
+	inidata["SKILLS"]["Nimble"] = "600"
+	inidata["SKILLS"]["Sneak"] = "600"
+	inidata["SKILLS"]["Axe"] = "600"
+	inidata["SKILLS"]["Woodwork"] = "600"
+	inidata["SKILLS"]["Cooking"] = "600"
+	inidata["SKILLS"]["Farming"] = "600"
+	inidata["SKILLS"]["Doctor"] = "600"
+	inidata["SKILLS"]["Electricity"] = "600"
+	inidata["SKILLS"]["MetalWelding"] = "600"
+	inidata["SKILLS"]["Aiming"] = "600"
+	inidata["SKILLS"]["Reloading"] = "600"
+	inidata["SKILLS"]["Fishing"] = "600"
+	inidata["SKILLS"]["Trapping"] = "600"
+	inidata["SKILLS"]["PlantScavenging"] = "600"
+	inidata["SKILLS"]["Tailoring"] = "600"
+	inidata["SKILLS"]["Mechanics"] = "600"
+	inidata["SKILLS"]["Spear"] = "600"
+	inidata["SKILLS"]["Blunt"] = "600"
+	inidata["SKILLS"]["SmallBlunt"] = "600"
+	inidata["SKILLS"]["LongBlade"] = "600"
+	inidata["SKILLS"]["SmallBlade"] = "600"
+	inidata["SKILLS"]["Maintenance"] = "600"
+	inidata["SKILLS"]["Fitness"] = "600"
+	inidata["SKILLS"]["Strength"] = "600"
+
+	inidata["SPECIALS"] = {}
+	inidata["SPECIALS"]["UI_CoxisShop_Healing"] = "5000"
+	inidata["SPECIALS"]["UI_CoxisShop_Repairing"] = "2000"
+	inidata["SPECIALS"]["UI_CoxisShop_GetKey"] = "2000"
+	inidata["SPECIALS"]["UI_CoxisShop_Repair_Vehicle"] = "4000"
+	inidata["SPECIALS"]["UI_CoxisShop_Copy_RH_Equipment"] = "4000"
+	inidata["SPECIALS"]["UI_CoxisShop_Teleport"] = "1000"
+	inidata["SPECIALS"]["UI_CoxisShop_Get_By_Type"] = "4000"
+	inidata["SPECIALS"]["UI_CoxisShop_Learn_All_Recipes"] = "4000"
+
+	inidata["SPECIFICATION_SELLING"] = {}
+	inidata["SPECIFICATION_SELLING"]["Base.Money"] = "1"
+	inidata["SPECIFICATION_SELLING"]["Base.Cigarettes"] = "1"
+
+
+	return inidata;
 end
 
 ---

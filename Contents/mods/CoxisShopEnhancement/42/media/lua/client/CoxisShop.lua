@@ -103,7 +103,7 @@ end
 -- 加载本地配置
 -- **************************************************************************************
 CoxisShop.LoadSettings = function()
-	CoxisShop.settings = CoxisUtil.readLua("CoxisShopEnhancement", "media/lua/client/CoxisShopSettings.lua");
+	CoxisShop.settings = CoxisUtil.readLua("CoxisShopEnhancement", "42/media/lua/client/CoxisShopSettings.lua");
 end
 
 -- **************************************************************************************

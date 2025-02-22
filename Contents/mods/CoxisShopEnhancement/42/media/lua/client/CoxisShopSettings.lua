@@ -11,7 +11,7 @@
 ----------------------------------------------------------------------------------------
 
 --|[BASIC]
---|initialMoney=2000000
+--|initialMoney=2000
 --|amount=5
 --|daily=0
 --|bonus=0.025
@@ -54,7 +54,6 @@
 --|Base.WeldingMask=100
 --|Base.BlowTorch=100
 --|Base.PropaneTank=100
---|Base.TirePump=100
 --|Base.Lighter=100
 --|Base.Cigarettes=20
 --|Base.Battery=100
