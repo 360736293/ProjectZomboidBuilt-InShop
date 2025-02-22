@@ -44,7 +44,8 @@ function ISCoxisShopPanel:create()
 
 	for itemType,value in pairs(self.items) do
 		local item = ScriptManager.instance:getItem(itemType)
-		self.CoxisShopList:addItem(item:getDisplayName() .. " (" .. tostring(value) .. ")", tostring(itemType) .. "|" .. tostring(value));
+		-- self.CoxisShopList:addItem(item:getDisplayName() .. " (" .. tostring(value) .. ")", tostring(itemType) .. "|" .. tostring(value));
+		self.CoxisShopList:addItem(itemType .. " (" .. tostring(value) .. ")", tostring(itemType) .. "|" .. tostring(value));
 	end
 	self.CoxisShopBuyButton = self:createButton(170, y-15, "UI_CoxisShop_BuyButton", "buy", self.onBuyMouseDown, self.char, self.playerId);
 	self.CoxisShopSellButton = self:createButton(290, y-15, "UI_CoxisShop_SellButton", "sell", self.onSellMouseDown, self.char, self.playerId);
